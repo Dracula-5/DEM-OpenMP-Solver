@@ -8,59 +8,67 @@ This project implements a Discrete Element Method (DEM) solver to simulate parti
 
 ## ⚙️ Features
 
-* DEM solver implementation (Fortran)
+* DEM solver implemented in Fortran
 * Verification using:
 
-  * Free fall
-  * Constant velocity
+  * Free fall test
+  * Constant velocity test
   * Bounce test
 * OpenMP parallelisation
 * Performance analysis (speedup & efficiency)
-* Plot generation using Python
+* Visualization using Python
 
 ---
 
 ## 📂 Project Structure
 
 ```
-DEM_OpenMP/
+DEM-OpenMP-Solver/
 ├── src/        # Fortran source code
 ├── data/       # Simulation outputs
-├── results/    # Plots (PNG)
-├── plots/      # Python scripts
-├── report/     # PDF + LaTeX report
+├── results/    # Generated plots
+├── plots/      # Python plotting scripts
+├── report/     # Final report (PDF + LaTeX)
+├── Makefile
 ├── README.md
 ```
 
 ---
 
-## 🛠️ Compilation
+## 🛠️ Build Instructions (Makefile)
 
-### Serial Version
-
-```
-gfortran src/dem.f90 -O2 -o dem
-```
-
-### Parallel Version
+### Compile all
 
 ```
-gfortran src/dem_parallel.f90 -O2 -fopenmp -o dem_parallel
+make
+```
+
+### Compile individually
+
+```
+make dem
+make dem_parallel
 ```
 
 ---
 
-## ▶️ Running
+## ▶️ Running Simulations
 
-### Verification
+### Verification tests
 
 ```
-./dem freefall
-./dem velocity
-./dem bounce
+make run_freefall
+make run_velocity
+make run_bounce
 ```
 
-### Parallel Execution
+### Parallel execution
+
+```
+make run_parallel
+```
+
+Or manually:
 
 ```
 export OMP_NUM_THREADS=4
@@ -93,10 +101,10 @@ E(p) = S(p) / p
 
 ## ⚠️ Key Observations
 
-* DEM complexity is O(N²)
+* DEM has O(N²) computational complexity
 * Contact loop dominates (~90–95% runtime)
 * Parallelisation introduces overhead
-* No speedup observed for tested sizes due to atomic operations and synchronization
+* No speedup observed for tested problem sizes due to atomic operations and synchronization
 
 ---
 
@@ -104,13 +112,13 @@ E(p) = S(p) / p
 
 * Neighbour search (cell lists)
 * Domain decomposition
-* Reduce synchronization overhead
+* Reducing synchronization overhead
 
 ---
 
 ## 📄 Report
 
-The full report is available in:
+The complete report is available at:
 
 ```
 report/HPSC.pdf
@@ -120,5 +128,5 @@ report/HPSC.pdf
 
 ## 👤 Author
 
-Dheeraj Reddy
+**Dheeraj Reddy**
 HPSC Course — April 2026
